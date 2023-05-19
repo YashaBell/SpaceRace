@@ -1,0 +1,44 @@
+{ "frames": {
+   "0": {
+    "frame": { "x": 2, "y": 2, "w": 48, "h": 64 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
+    "sourceSize": { "w": 40, "h": 60 },
+    "duration": 100
+   },
+   "1": {
+    "frame": { "x": 53, "y": 2, "w": 48, "h": 64 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
+    "sourceSize": { "w": 40, "h": 60 },
+    "duration": 100
+   },
+   "2": {
+    "frame": { "x": 2, "y": 69, "w": 48, "h": 64 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
+    "sourceSize": { "w": 40, "h": 60 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "portal2.png",
+  "format": "RGBA8888",
+  "size": { "w": 102, "h": 134 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
