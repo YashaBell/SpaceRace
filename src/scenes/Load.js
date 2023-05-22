@@ -16,6 +16,7 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/"
         this.load.image('heart', 'heart.png',);
         this.load.atlas('sunset', 'sunset.png', 'sunset.json');
+        this.load.atlas('greenDime', 'greenDime.png', 'greenDime.json');
         this.load.atlas('jetpack', 'jetpack-sheet.png', 'jetpack.json');
         this.load.atlas('asteroid', 'asteroid.png', 'asteroid.json');
         this.load.atlas('warning', 'warning.png', 'warning.json');
@@ -33,7 +34,20 @@ class Load extends Phaser.Scene {
 
     create() {
         this.anims.create({
-            key: 'shiftingGrid',
+            key: 'portalGreen',
+            defaultTextureKey: 'greenDime',
+            frames:  this.anims.generateFrameNames('greenDime', {
+                prefix: 'greenDime_',
+                suffix: '',
+                start: 0,
+                end: 16,
+                zeroPad: 0,
+            }),
+            duration: 700,
+                repeat: -1
+        });
+        this.anims.create({
+            key: 'portalBlue',
             defaultTextureKey: 'sunset',
             frames:  this.anims.generateFrameNames('sunset', {
                 prefix: 'sunset_',

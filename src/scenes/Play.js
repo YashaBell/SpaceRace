@@ -8,11 +8,10 @@ class Play extends Phaser.Scene {
 
         //tilesprite
         this.sunset = this.add.sprite(0, 0,portalCompleteList[currentDim]).setOrigin(0,0);
-        //this.cameras.main.setTint(0x00ff00);
         this.physics.world.setBounds(0,0,game.config.width,game.config.height);
         this.gameOver = false;
         this.currentAsteroid = 0;
-        this.totalAsteroid = 5;
+        this.totalAsteroid = 10;
 
         //audio set up based on paddleParkour
         this.bgdMusic = this.sound.add('dimension_1', { 
@@ -22,7 +21,7 @@ class Play extends Phaser.Scene {
             loop: true 
         });
         this.bgdMusic.play();
-        this.sunset.anims.play('shiftingGrid');
+        this.sunset.anims.play(portalCompleteList[currentDim]);
 
         //key binds
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -83,7 +82,7 @@ class Play extends Phaser.Scene {
             maxsize: -1
         });
         this.portalType = null;
-        this.time.delayedCall(Phaser.Math.Between(1000, 5000), () => {
+        this.time.delayedCall(Phaser.Math.Between(45000, 60000), () => {
             console.log(this.possiblePortals);
             this.portalType = this.possiblePortals[0];
         });
