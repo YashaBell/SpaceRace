@@ -7,7 +7,8 @@ class Play extends Phaser.Scene {
         
 
         //tilesprite
-        this.sunset = this.add.sprite (0, 0,'sunset').setOrigin(0,0); 
+        this.sunset = this.add.sprite(0, 0,portalCompleteList[currentDim]).setOrigin(0,0);
+        //this.cameras.main.setTint(0x00ff00);
         this.physics.world.setBounds(0,0,game.config.width,game.config.height);
         this.gameOver = false;
         this.currentAsteroid = 0;
@@ -21,9 +22,6 @@ class Play extends Phaser.Scene {
             loop: true 
         });
         this.bgdMusic.play();
-
-
-        
         this.sunset.anims.play('shiftingGrid');
 
         //key binds
@@ -33,7 +31,7 @@ class Play extends Phaser.Scene {
         
         
         this.P1 = new jetPack(this, game.config.width / 2, game.config.height - playerBuffer, 'jetpack', 'jetpack_00.png').setDepth(1);
-        
+        this.P1.health = health;
         this.asteroids = this.add.group({
             classType: asteroid,
             runChildUpdate: true,
@@ -42,16 +40,51 @@ class Play extends Phaser.Scene {
 
         this.physics.world.on('overlap', (gameObject1, gameObject2, body1, body2) =>{
 
-            if(gameObject1.texture.key == 'jetpack'){
-                this.P1.PlayerAsteroidOverlap(); 
+            if(gameObject2.texture.key == this.portalType){
+                console.log(true);
+                this.gameOver = true;
+                gameObject2.playerContact = true;
+                this.tweens.chain({
+                    targets: gameObject2,
+                    tweens: [
+                        {
+                            scale: 20,
+                            duration: 1000
+                        }
+                    ],
+                    onComplete: () => {
+                        currentDim = portalCompleteList.indexOf(this.portalType);
+                        this.scene.start('playScene');
+                    }
+                });
+                
             }
             if(gameObject2.texture.key == 'asteroid'){
                 gameObject2.kill();
+                this.P1.PlayerAsteroidOverlap(); 
             }
             
         });
-            
         this.scene.run('gameUIScene', {active: true});
+        
+        this.possiblePortals = new Array(portalCompleteList.length);
+        for(let i = 0; i < portalCompleteList.length; i++){
+            this.possiblePortals[i] = portalCompleteList[i];
+        }
+        console.log(this.possiblePortals);
+        this.currentPortals = 0;
+         this.totalPortals = 1;
+        this.possiblePortals.splice(currentDim, 1);
+        this.portal = this.add.group({
+            classType: portal,
+            runChildUpdate: true,
+            maxsize: -1
+        });
+        this.portalType = null;
+        this.time.delayedCall(Phaser.Math.Between(1000, 5000), () => {
+            console.log(this.possiblePortals);
+            this.portalType = this.possiblePortals[0];
+        });
     }
 
     update(){
@@ -65,25 +98,36 @@ class Play extends Phaser.Scene {
                 ));
             });
         }
-
-        if(this.P1.health == 0){
-            this.gameOver = true;
-            this.asteroids.clear(true, true);
-            this.time.delayedCall(1000, () => {
-                this.bgdMusic.remove();
-                this.scene.stop('gameUIScene');
-                this.scene.start('gameOverScene');
-                
-            });
+        if(this.portalType != null){
+            if(this.currentPortals < this.totalPortals){    
+                this.currentPortals ++;
+                this.portal.add(new portal(this,
+                    (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
+                    164, 
+                    this.portalType,
+                ));
+            }
         }
+        
         
         this.P1.update();
         if(!this.gameOver){
             this.P1.update();
+            this.physics.world.overlap(this.P1, this.portal);
             //onOverlap isn't working so I did it myself fuck you phaser
             if(this.P1.body.onOverlap){
                 this.physics.world.overlap(this.P1, this.asteroids);
             }
+        }
+        if(this.P1.health == 0){
+            this.gameOver = true;
+            this.asteroids.clear(true, true);
+            this.time.delayedCall(1000, () => {
+                this.bgdMusic.destroy();
+                this.scene.stop('gameUIScene');
+                this.scene.start('gameOverScene');
+                
+            });
         }
     } 
 }

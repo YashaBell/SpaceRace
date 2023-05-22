@@ -17,6 +17,9 @@ let UIBorderY = game.config.height/20;
 let highScore = 100;
 let newHighScore = false;
 let raceScore = 0;
+let portalCompleteList = ["portalBlue", "portalGreen"];
+let currentDim = 0;
+let health = 3;
 
 let horizonLine = ( 98 * game.config.width )/640;
 

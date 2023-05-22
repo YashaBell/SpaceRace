@@ -69,5 +69,5 @@ class jetPack extends Phaser.Physics.Arcade.Sprite {
                 this.body.onOverlap = true;
             }
         });
-    }
+    }   
 }

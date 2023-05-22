@@ -20,6 +20,8 @@ class Load extends Phaser.Scene {
         this.load.atlas('asteroid', 'asteroid.png', 'asteroid.json');
         this.load.atlas('warning', 'warning.png', 'warning.json');
         this.load.atlas('titleScreen', 'title_Screen.png', 'title_Screen.json');
+        this.load.atlas('portalBlue', 'portalBlue.png', 'portalBlue.json');
+        this.load.atlas('portalGreen', 'portalGreen.png', 'portalGreen.json');
         this.load.path = "./assets/audio/"
         this.load.audio('dimension_1', 'Space1.wav');
         this.load.audio('selectSFX', 'selection.wav');
