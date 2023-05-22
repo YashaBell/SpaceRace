@@ -1,0 +1,42 @@
+{ "frames": {
+   "title_00": {
+    "frame": { "x": 0, "y": 0, "w": 640, "h": 360 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 640, "h": 360 },
+    "sourceSize": { "w": 640, "h": 360 },
+    "duration": 100
+   },
+   "title_01": {
+    "frame": { "x": 640, "y": 0, "w": 640, "h": 360 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 640, "h": 360 },
+    "sourceSize": { "w": 640, "h": 360 },
+    "duration": 100
+   },
+   "title_02": {
+    "frame": { "x": 1280, "y": 0, "w": 640, "h": 360 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 640, "h": 360 },
+    "sourceSize": { "w": 640, "h": 360 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "Title_Screen.png",
+  "format": "I8",
+  "size": { "w": 1920, "h": 360 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

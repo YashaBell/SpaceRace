@@ -21,7 +21,7 @@ let raceScore = 0;
 let horizonLine = ( 98 * game.config.width )/640;
 
 const sceneEvents = new Phaser.Events.EventEmitter();
-let defaultTextConfig = {
+let titleTextConfig = {
     fontFamily: 'Impact',
     fontStyle: 'normal',
     fontSize: '36px',

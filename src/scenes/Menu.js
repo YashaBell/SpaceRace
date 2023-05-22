@@ -4,14 +4,38 @@ class Menu extends Phaser.Scene {
     }
     preload(){}
     create(){
-        defaultTextConfig.fontSize = '36px';
-        this.add.text(game.config.width/2, game.config.height/6, 'Space Race', defaultTextConfig).setOrigin(.5,.5);
-        defaultTextConfig.fontSize = '24px';
-        //this.add.text(game.config.width/2, game.config.height/6 + 36, `High Score: ${highScore}`, defaultTextConfig).setOrigin(.5,.5);
-        defaultTextConfig.color = '#990000';
-        this.add.text(game.config.width/2, game.config.height/2, 'use (A) and (D) to move left and right\n press (Space) to start', defaultTextConfig).setOrigin(.5,.5);
-        defaultTextConfig.color = '#71b09f';
-        this.add.text(game.config.width/2, (game.config.height* 5) / 6, 'press (C) to see credits', defaultTextConfig).setOrigin(.5,.5);
+        this.BGD = this.add.sprite(0,0,'titleScreen').setOrigin(0,0);
+        this.BGD.anims.play('titleFun');
+        
+        let titleTextConfig = {
+            fontFamily: 'Impact',
+            fontStyle: 'normal',
+            fontSize: '36px',
+            backgroundColor: '#000000',
+            color: '#71b09f',
+            align: 'center',
+            padding: {
+                top: 10,
+                bottom: 10
+            },
+            fixedWidth: 0
+        }
+        this.add.text(UIBorderX, UIBorderY, 'Space Race', titleTextConfig).setOrigin(0,0);
+        
+        this.subtitleTextConfig = {
+            fontFamily: 'Impact',
+            fontStyle: 'normal',
+            fontSize: '20px',
+            color: '#990000',
+            align: 'center',
+            padding: {
+                top: 10,
+                bottom: 10
+            },
+            fixedWidth: 0
+        }
+        this.add.text(UIBorderX, UIBorderY * 4, 'press (Space) to start', this.subtitleTextConfig).setOrigin(0,0);
+        this.add.text(UIBorderX, UIBorderY * 6, 'press (C) to see credits', this.subtitleTextConfig).setOrigin(0,.0);
         
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);

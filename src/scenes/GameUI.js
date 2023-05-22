@@ -7,7 +7,7 @@ class GameUI extends Phaser.Scene {
     preload(){
     }
     create(){
-        let scoreConfig = defaultTextConfig;
+        let scoreConfig = titleTextConfig;
         scoreConfig.fontSize = `${UIBorderY}px`
         scoreConfig.padding = {
             top: -1,

@@ -70,7 +70,7 @@ class Play extends Phaser.Scene {
             this.gameOver = true;
             this.asteroids.clear(true, true);
             this.time.delayedCall(1000, () => {
-                this.bgdMusic.stop();
+                this.bgdMusic.remove();
                 this.scene.stop('gameUIScene');
                 this.scene.start('gameOverScene');
                 

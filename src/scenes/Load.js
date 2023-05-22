@@ -19,6 +19,7 @@ class Load extends Phaser.Scene {
         this.load.atlas('jetpack', 'jetpack-sheet.png', 'jetpack.json');
         this.load.atlas('asteroid', 'asteroid.png', 'asteroid.json');
         this.load.atlas('warning', 'warning.png', 'warning.json');
+        this.load.atlas('titleScreen', 'title_Screen.png', 'title_Screen.json');
         this.load.path = "./assets/audio/"
         this.load.audio('dimension_1', 'Space1.wav');
         this.load.audio('selectSFX', 'selection.wav');
@@ -37,6 +38,21 @@ class Load extends Phaser.Scene {
                 suffix: '.ase',
                 start: 0,
                 end: 16,
+                zeroPad: 2,
+            }),
+            duration: 700,
+                repeat: -1
+        });
+        this.scene.start('menuScene');
+
+        this.anims.create({
+            key: 'titleFun',
+            defaultTextureKey: 'titleScreen',
+            frames:  this.anims.generateFrameNames('titleScreen', {
+                prefix: 'title_',
+                suffix: '',
+                start: 0,
+                end: 2,
                 zeroPad: 2,
             }),
             duration: 700,
