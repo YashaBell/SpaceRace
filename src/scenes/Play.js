@@ -44,12 +44,14 @@ class Play extends Phaser.Scene {
                 console.log(true);
                 this.gameOver = true;
                 gameObject2.playerContact = true;
+                gameObject2.setDepth(2);
+                this.asteroids.clear(true, true);
                 this.tweens.chain({
                     targets: gameObject2,
                     tweens: [
                         {
-                            scale: 20,
-                            duration: 1000
+                            scale: 40,
+                            duration: 2000
                         }
                     ],
                     onComplete: () => {

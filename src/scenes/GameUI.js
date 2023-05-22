@@ -43,7 +43,7 @@ class GameUI extends Phaser.Scene {
                 x: 1,
                 y: 1
             },
-            quantity: 3
+            quantity: health
         });
     }
     update(){

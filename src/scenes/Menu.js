@@ -4,6 +4,7 @@ class Menu extends Phaser.Scene {
     }
     preload(){}
     create(){
+        health = 3;
         this.BGD = this.add.sprite(0,0,'titleScreen').setOrigin(0,0);
         this.BGD.anims.play('titleFun');
         
