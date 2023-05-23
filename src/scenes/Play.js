@@ -31,10 +31,33 @@ class Play extends Phaser.Scene {
         
         this.P1 = new jetPack(this, game.config.width / 2, game.config.height - playerBuffer, 'jetpack', 'jetpack_00.png').setDepth(1);
         this.P1.health = health;
+
+
         this.asteroids = this.add.group({
             classType: asteroid,
             runChildUpdate: true,
             maxsize: -1
+        });
+        
+
+        this.scene.run('gameUIScene', {active: true});
+        
+        this.possiblePortals = new Array(portalCompleteList.length);
+        for(let i = 0; i < portalCompleteList.length; i++){
+            this.possiblePortals[i] = portalCompleteList[i];
+        }
+        console.log(this.possiblePortals);
+        this.currentPortals = 0;
+         this.totalPortals = 1;
+        this.possiblePortals.splice(currentDim, 1);
+        this.portal = this.add.group({
+            classType: portal,
+            runChildUpdate: true,
+            maxsize: -1
+        });
+        this.portalType = null;
+        this.time.delayedCall(Phaser.Math.Between(45000, 60000), () => {
+            this.portalType = this.possiblePortals[0];
         });
 
         this.physics.world.on('overlap', (gameObject1, gameObject2, body1, body2) =>{
@@ -66,38 +89,24 @@ class Play extends Phaser.Scene {
             }
             
         });
-        this.scene.run('gameUIScene', {active: true});
-        
-        this.possiblePortals = new Array(portalCompleteList.length);
-        for(let i = 0; i < portalCompleteList.length; i++){
-            this.possiblePortals[i] = portalCompleteList[i];
-        }
-        console.log(this.possiblePortals);
-        this.currentPortals = 0;
-         this.totalPortals = 1;
-        this.possiblePortals.splice(currentDim, 1);
-        this.portal = this.add.group({
-            classType: portal,
-            runChildUpdate: true,
-            maxsize: -1
-        });
-        this.portalType = null;
-        this.time.delayedCall(Phaser.Math.Between(45000, 60000), () => {
-            console.log(this.possiblePortals);
-            this.portalType = this.possiblePortals[0];
-        });
+        this.nextAsteroid = this.sys.game.loop.time + 700;
     }
 
     update(){
+        
         if(this.currentAsteroid < this.totalAsteroid){    
-            this.currentAsteroid ++;
-            this.time.delayedCall(Phaser.Math.Between(1000, 10000), () => {
-                this.asteroids.add(new asteroid(this,
-                    (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
-                    164, 
-                    'asteroid',
-                ));
-            });
+            if(this.sys.game.loop.time > this.nextAsteroid ){
+                //this.time.delayedCall(Phaser.Math.Between(1000, 10000), () => {
+                    this.asteroids.add(new asteroid(this,
+                        (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
+                        164, 
+                        'asteroid',
+                    ));
+                    
+                    this.currentAsteroid ++;
+                    this.nextAsteroid = this.sys.game.loop.time + 700;
+                //});
+            }
         }
         if(this.portalType != null){
             if(this.currentPortals < this.totalPortals){    
