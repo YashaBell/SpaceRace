@@ -159,11 +159,9 @@ class Play extends Phaser.Scene {
             if(this.P1.body.onOverlap){
                 this.physics.world.overlap(this.P1, this.asteroids);
             }
-        }
-        if(this.P1.health == 0){
-            this.gameOver = true;
-            this.asteroids.clear(true, true);
-            this.time.delayedCall(1000, () => {
+            if(this.P1.health == 0){
+                this.gameOver = true;
+                this.asteroids.clear(true, true);
                 this.tweens.add({
                     targets: this.bgdMusic,
                     volume: 0,
@@ -175,7 +173,7 @@ class Play extends Phaser.Scene {
                         this.scene.start('gameOverScene');
                     }
                 });
-            });
+            }
         }
     } 
 }
