@@ -171,11 +171,10 @@ class Play extends Phaser.Scene {
                     duration: 2000,
                     onComplete: () => {
                         this.bgdMusic.destroy();
+                        this.scene.stop('gameUIScene');
+                        this.scene.start('gameOverScene');
                     }
                 });
-                this.scene.stop('gameUIScene');
-                this.scene.start('gameOverScene');
-                
             });
         }
     } 

@@ -53,7 +53,7 @@ class GameUI extends Phaser.Scene {
         sceneEvents.on('collectEssence', () => {
             this.portalVisionValue += 5;
             console.log(this.portalVisionValue);
-            if(this.portalVisionValue >=10){
+            if(this.portalVisionValue >= 100){
                 this.vision.setFrame('vision_1');
                 sceneEvents.emit('spawnPortal');
                 this.portalVisionValue = 0;

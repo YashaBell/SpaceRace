@@ -12,7 +12,6 @@ class Menu extends Phaser.Scene {
             fontFamily: 'Impact',
             fontStyle: 'normal',
             fontSize: '36px',
-            backgroundColor: '#000000',
             color: '#71b09f',
             align: 'center',
             padding: {
@@ -27,7 +26,7 @@ class Menu extends Phaser.Scene {
             fontFamily: 'Impact',
             fontStyle: 'normal',
             fontSize: '20px',
-            color: '#990000',
+            color: '#ffffff',
             align: 'center',
             padding: {
                 top: 10,
