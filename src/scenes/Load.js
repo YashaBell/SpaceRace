@@ -13,48 +13,50 @@ class Load extends Phaser.Scene {
         this.load.on('complete', () => {
             loadingBar.destroy();
         });
+        // image files
         this.load.path = "./assets/"
-        this.load.image('heart', 'heart.png',);
-        this.load.atlas('sunset', 'sunset.png', 'sunset.json');
-        this.load.atlas('greenDime', 'greenDime.png', 'greenDime.json');
-        this.load.atlas('jetpack', 'jetpack-sheet.png', 'jetpack.json');
-        this.load.atlas('asteroid', 'asteroid.png', 'asteroid.json');
-        this.load.atlas('warning', 'warning.png', 'warning.json');
+        // title screen animation
         this.load.atlas('titleScreen', 'titleScreen.png', 'titleScreen.json');
+        // Background resources
+        this.load.image('portalBluebgd', 'blueDime.png');
+        this.load.image('portalGreenbgd', 'greenDime.png');
+        this.load.atlas('gridMove', 'moving_grid.png', 'moving_grid.json' )
+        // Game UI elements
+        this.load.image('heart', 'heart.png',);
+        this.load.atlas('vision', 'vision.png', 'vision.json')
+
+        // portal sprites
         this.load.atlas('portalBlue', 'portalBlue.png', 'portalBlue.json');
         this.load.atlas('portalGreen', 'portalGreen.png', 'portalGreen.json');
+        // player sprite atlas
+        this.load.atlas('jetpack', 'jetpack-sheet.png', 'jetpack.json');
+        // asteroid animation atlas
+        this.load.atlas('asteroid', 'asteroid.png', 'asteroid.json');
+        //essence sprite
+        this.load.image('essence', 'temp.png');
+        
+        // audio files
         this.load.path = "./assets/audio/"
+        // game music
         this.load.audio('dimension_1', 'Space1.wav');
+        this.load.audio('dimension_2','Space2.wav')
+        // SFX
         this.load.audio('selectSFX', 'selection.wav');
         this.load.audio('portal', 'portal.wav');
         this.load.audio('warning', 'warning.wav');
-        this.load.audio('dimension_2','Space2.wav')
-
+        
     }
 
     create() {
         this.anims.create({
-            key: 'portalGreen',
-            defaultTextureKey: 'greenDime',
-            frames:  this.anims.generateFrameNames('greenDime', {
-                prefix: 'greenDime_',
+            key: 'gridMoveAnim',
+            defaultTextureKey: 'gridMove',
+            frames:  this.anims.generateFrameNames('gridMove', {
+                prefix: 'gridMove_',
                 suffix: '',
                 start: 0,
                 end: 16,
                 zeroPad: 0,
-            }),
-            duration: 700,
-                repeat: -1
-        });
-        this.anims.create({
-            key: 'portalBlue',
-            defaultTextureKey: 'sunset',
-            frames:  this.anims.generateFrameNames('sunset', {
-                prefix: 'sunset_',
-                suffix: '.ase',
-                start: 0,
-                end: 16,
-                zeroPad: 2,
             }),
             duration: 700,
                 repeat: -1

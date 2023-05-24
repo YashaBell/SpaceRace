@@ -1,0 +1,34 @@
+{ "frames": {
+   "vision_0": {
+    "frame": { "x": 0, "y": 0, "w": 25, "h": 25 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 25, "h": 25 },
+    "sourceSize": { "w": 25, "h": 25 },
+    "duration": 100
+   },
+   "vision_1": {
+    "frame": { "x": 25, "y": 0, "w": 25, "h": 25 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 25, "h": 25 },
+    "sourceSize": { "w": 25, "h": 25 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "Vision.png",
+  "format": "RGBA8888",
+  "size": { "w": 50, "h": 25 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

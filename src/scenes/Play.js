@@ -4,14 +4,15 @@ class Play extends Phaser.Scene {
     }
     preload() {}
     create(){
-        
-
-        //tilesprite
-        this.sunset = this.add.sprite(0, 0,portalCompleteList[currentDim]).setOrigin(0,0);
-        this.physics.world.setBounds(0,0,game.config.width,game.config.height);
+        //play scene variable set up
         this.gameOver = false;
-        this.currentAsteroid = 0;
-        this.totalAsteroid = 10;
+        this.bipor = true;
+        //background creation
+        this.sunset = this.add.tileSprite(0, 0, 640, 360, `${portalCompleteList[currentDim]}bgd`).setOrigin(0,0);
+        this.shmmovvin = this.add.sprite(game.config.width, game.config.height, 'gridMove').setOrigin(1,1);
+        //physics world bounds
+        this.physics.world.setBounds(0,0,game.config.width,game.config.height);
+        this.shmmovvin.anims.play('gridMoveAnim');
 
         //audio set up based on paddleParkour
         this.bgdMusic = this.sound.add('dimension_1', { 
@@ -21,8 +22,7 @@ class Play extends Phaser.Scene {
             loop: true 
         });
         this.bgdMusic.play();
-        this.sunset.anims.play(portalCompleteList[currentDim]);
-
+        
         //key binds
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -30,15 +30,18 @@ class Play extends Phaser.Scene {
         
         
         this.P1 = new jetPack(this, game.config.width / 2, game.config.height - playerBuffer, 'jetpack', 'jetpack_00.png').setDepth(1);
-        this.P1.health = health;
 
 
         this.asteroids = this.add.group({
             classType: asteroid,
             runChildUpdate: true,
-            maxsize: -1
+            maxSize: 10
         });
-        
+        this.essences = this.add.group({
+            classType: asteroid,
+            runChildUpdate: true,
+            maxSize: 10
+        })
 
         this.scene.run('gameUIScene', {active: true});
         
@@ -53,11 +56,12 @@ class Play extends Phaser.Scene {
         this.portal = this.add.group({
             classType: portal,
             runChildUpdate: true,
-            maxsize: -1
+            maxsSize: -1
         });
         this.portalType = null;
-        this.time.delayedCall(Phaser.Math.Between(45000, 60000), () => {
+        sceneEvents.on('spawnPortal', () => {
             this.portalType = this.possiblePortals[0];
+            this.bipor = false;
         });
 
         this.physics.world.on('overlap', (gameObject1, gameObject2, body1, body2) =>{
@@ -68,6 +72,15 @@ class Play extends Phaser.Scene {
                 gameObject2.playerContact = true;
                 gameObject2.setDepth(2);
                 this.asteroids.clear(true, true);
+                this.tweens.add({
+                    targets: this.bgdMusic,
+                    volume: 0,
+                    ease: 'Linear',
+                    duration: 2000,
+                    onComplete: () => {
+                        this.bgdMusic.destroy();
+                    }
+                });
                 this.tweens.chain({
                     targets: gameObject2,
                     tweens: [
@@ -87,14 +100,20 @@ class Play extends Phaser.Scene {
                 gameObject2.kill();
                 this.P1.PlayerAsteroidOverlap(); 
             }
-            
+            if(gameObject2.texture.key == 'essence'){
+                gameObject2.kill();
+                sceneEvents.emit('collectEssence');
+
+            }
         });
+        //timing vars for spawning
         this.nextAsteroid = this.sys.game.loop.time + 700;
+        this.nextEssence = this.sys.game.loop.time + 700;
     }
 
     update(){
         
-        if(this.currentAsteroid < this.totalAsteroid){    
+        if(this.asteroids.countActive(true) < this.asteroids.maxSize){    
             if(this.sys.game.loop.time > this.nextAsteroid ){
                 //this.time.delayedCall(Phaser.Math.Between(1000, 10000), () => {
                     this.asteroids.add(new asteroid(this,
@@ -102,9 +121,19 @@ class Play extends Phaser.Scene {
                         164, 
                         'asteroid',
                     ));
-                    
-                    this.currentAsteroid ++;
                     this.nextAsteroid = this.sys.game.loop.time + 700;
+                //});
+            }
+        }
+        if(this.essences.countActive(true) < this.essences.maxSize && this.bipor){    
+            if(this.sys.game.loop.time > this.nextEssence){
+                //this.time.delayedCall(Phaser.Math.Between(1000, 10000), () => {
+                    this.essences.add(new asteroid(this,
+                        (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
+                        164, 
+                        'essence',
+                    ));
+                    this.nextEssence = this.sys.game.loop.time + 700;
                 //});
             }
         }
@@ -124,6 +153,8 @@ class Play extends Phaser.Scene {
         if(!this.gameOver){
             this.P1.update();
             this.physics.world.overlap(this.P1, this.portal);
+            this.physics.world.overlap(this.P1, this.essences);
+            
             //onOverlap isn't working so I did it myself fuck you phaser
             if(this.P1.body.onOverlap){
                 this.physics.world.overlap(this.P1, this.asteroids);
@@ -133,7 +164,15 @@ class Play extends Phaser.Scene {
             this.gameOver = true;
             this.asteroids.clear(true, true);
             this.time.delayedCall(1000, () => {
-                this.bgdMusic.destroy();
+                this.tweens.add({
+                    targets: this.bgdMusic,
+                    volume: 0,
+                    ease: 'Linear',
+                    duration: 2000,
+                    onComplete: () => {
+                        this.bgdMusic.destroy();
+                    }
+                });
                 this.scene.stop('gameUIScene');
                 this.scene.start('gameOverScene');
                 

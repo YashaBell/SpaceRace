@@ -8,9 +8,8 @@ class jetPack extends Phaser.Physics.Arcade.Sprite {
         this.body.setCollideWorldBounds(true);
         this.accel = 400;
         this.drag = 400;
-        this.health = 3;
+        this.health = health;
         this.scale = 1;
-        this.health = 3;
 
         this.anims.create({
             key: 'flyingLoop',
