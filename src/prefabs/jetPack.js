@@ -10,6 +10,7 @@ class jetPack extends Phaser.Physics.Arcade.Sprite {
         this.drag = 400;
         this.health = health;
         this.scale = 1;
+        this.isInvulnerable = false;
 
         this.anims.create({
             key: 'flyingLoop',
