@@ -1,5 +1,5 @@
 { "frames": {
-   "asteroid_0.png": {
+   "asteroid_0": {
     "frame": { "x": 0, "y": 0, "w": 13, "h": 28 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 13, "h": 28 },
     "duration": 100
    },
-   "asteroid_1.png": {
+   "asteroid_1": {
     "frame": { "x": 13, "y": 0, "w": 13, "h": 28 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 13, "h": 28 },
     "duration": 100
    },
-   "asteroid_2.png": {
+   "asteroid_2": {
     "frame": { "x": 26, "y": 0, "w": 13, "h": 28 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 13, "h": 28 },
     "duration": 100
    },
-   "asteroid_3.png": {
+   "asteroid_3": {
     "frame": { "x": 39, "y": 0, "w": 13, "h": 28 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 13, "h": 28 },
     "duration": 100
    },
-   "asteroid_4.png": {
+   "asteroid_4": {
     "frame": { "x": 52, "y": 0, "w": 13, "h": 28 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 13, "h": 28 },
     "duration": 100
    },
-   "asteroid_5.png": {
+   "asteroid_5": {
     "frame": { "x": 65, "y": 0, "w": 13, "h": 28 },
     "rotated": false,
     "trimmed": false,

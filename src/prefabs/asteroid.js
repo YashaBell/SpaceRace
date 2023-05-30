@@ -13,16 +13,12 @@ class asteroid extends Phaser.Physics.Arcade.Sprite {
         this.body.velocity.y = 198/ this.constVelocity;
         //set x velocity to move to the correct end target
         this.body.velocity.x = (this.targetX - this.x) / this.constVelocity;
-        if(this.texture.key != 'essence'){
-            this.angle = - Math.atan(this.body.velocity.x / this.body.velocity.y) * 180/Math.PI;
-            this.body.setOffset(this.body.velocity.x * 0.15, this.body.velocity.y * 0.15);
-        }
         this.anims.create({
             key: 'asteroidFly',
             defaultTextureKey: 'asteroid',
             frames:  this.anims.generateFrameNames('asteroid', {
                 prefix: 'asteroid_',
-                suffix: '.png',
+                suffix: '',
                 start: 0,
                 end:5,
                 zeroPad: 0,
@@ -31,38 +27,17 @@ class asteroid extends Phaser.Physics.Arcade.Sprite {
             repeat: -1
         });
         if(this.texture.key == 'asteroid'){this.anims.play('asteroidFly');}
-        this.anims.create({
-            key: 'asteroidBoom',
-            defaultTextureKey: 'asteroid',
-            frames:  this.anims.generateFrameNames('asteroid', {
-                prefix: 'asteroid_',
-                suffix: '.png',
-                start: 0,
-                end:5,
-                zeroPad: 0,
-            }),
-            duration: 600,
-        });
     }
     update() {
-        this.scale = ((this.y - 128) / 128) * 3;
-        if(this.texture.key == 'essence'){this.scale /= 6;}
+        if(this.texture.key == 'asteroid'){
+            this.scale = ((this.y - 128) / 128) * 3;
+            this.angle = - Math.atan(this.body.velocity.x / this.body.velocity.y) * 180/Math.PI;
+            this.body.setOffset( Math.sin( (this.angle) * Math.PI/180 ) * - 7.5 ,  Math.cos( (this.angle) * Math.PI/180) * 7.5 );
+        }
+        if(this.texture.key == 'essence'){this.scale = ((this.y - 128) / 128) / 2;}
         if(this.y > game.config.height + this.body.height / 2){
-            this.kill()
+            this.destroy();
         }
 
     }
-    kill(){
-        this.scene.currentAsteroid --;
-        this.destroy();
-    }
-    explode(){
-        this.setVelocity(0,0);
-        this.anims.play('asteroidBoom');
-        this.on('animationcomplete', () => {
-            this.kill();
-        });
-    }
-    
-
 }

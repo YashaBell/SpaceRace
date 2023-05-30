@@ -8,7 +8,8 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
         this.bipor = true;
         //background creation
-        this.sunset = this.add.tileSprite(0, 0, 640, 360, `${portalCompleteList[currentDim]}bgd`).setOrigin(0,0);
+        this.sunset = this.add.tileSprite(0, 0, 640, 360, `bgd`).setOrigin(0,0);
+        this.sunset.tint= portalTint[currentDim];
         this.shmmovvin = this.add.sprite(game.config.width, game.config.height, 'gridMove').setOrigin(1,1);
         //physics world bounds
         this.physics.world.setBounds(0,0,game.config.width,game.config.height);
@@ -45,28 +46,27 @@ class Play extends Phaser.Scene {
 
         this.scene.run('gameUIScene', {active: true});
         
-        this.possiblePortals = new Array(portalCompleteList.length);
-        for(let i = 0; i < portalCompleteList.length; i++){
-            this.possiblePortals[i] = portalCompleteList[i];
+        this.possiblePortals = new Array(portalTint.length);
+        for(let i = 0; i < portalTint.length; i++){
+            this.possiblePortals[i] = portalTint[i];
         }
         console.log(this.possiblePortals);
-        this.currentPortals = 0;
-         this.totalPortals = 1;
+        
         this.possiblePortals.splice(currentDim, 1);
+
         this.portal = this.add.group({
             classType: portal,
             runChildUpdate: true,
-            maxsSize: -1
+            maxSize: 1
         });
         this.portalType = null;
         sceneEvents.on('spawnPortal', () => {
-            this.portalType = this.possiblePortals[0];
+            this.portalType = this.possiblePortals[Phaser.Math.Between(0, this.possiblePortals.length - 1)];
             this.bipor = false;
         });
-
         this.physics.world.on('overlap', (gameObject1, gameObject2, body1, body2) =>{
-
-            if(gameObject2.texture.key == this.portalType){
+            gameObject2.onOverlap = false;
+            if(gameObject2.texture.key == 'portal'){
                 console.log(true);
                 this.gameOver = true;
                 gameObject2.playerContact = true;
@@ -90,18 +90,25 @@ class Play extends Phaser.Scene {
                         }
                     ],
                     onComplete: () => {
-                        currentDim = portalCompleteList.indexOf(this.portalType);
+                        currentDim = portalTint.indexOf(this.portalType);
                         this.scene.start('playScene');
                     }
                 });
                 
             }
             if(gameObject2.texture.key == 'asteroid'){
-                gameObject2.kill();
+                this.temp = this.add.sprite(gameObject2.x, gameObject2.y, 'explosion');
+                this.temp.angle = gameObject2.angle;
+                this.temp.scale = gameObject2.scale;
+                gameObject2.destroy();
                 this.P1.PlayerAsteroidOverlap(); 
+                this.temp.anims.play('boom');
+                this.temp.on('animationcomplete', () => {
+                    this.temp.destroy();
+                });
             }
             if(gameObject2.texture.key == 'essence'){
-                gameObject2.kill();
+                gameObject2.destroy();
                 sceneEvents.emit('collectEssence');
 
             }
@@ -120,7 +127,7 @@ class Play extends Phaser.Scene {
                         (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
                         164, 
                         'asteroid',
-                    ));
+                    )).setOrigin(0.5);
                     this.nextAsteroid = this.sys.game.loop.time + 700;
                 //});
             }
@@ -138,13 +145,15 @@ class Play extends Phaser.Scene {
             }
         }
         if(this.portalType != null){
-            if(this.currentPortals < this.totalPortals){    
-                this.currentPortals ++;
+            if(this.portal.countActive(true) < this.portal.maxSize){    
+                this.portalCur ++
+                console.log(this.portalType)
                 this.portal.add(new portal(this,
                     (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
                     164, 
-                    this.portalType,
+                    'portal',
                 ));
+                
             }
         }
         

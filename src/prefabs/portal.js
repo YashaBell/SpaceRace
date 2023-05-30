@@ -9,6 +9,7 @@ class portal extends Phaser.Physics.Arcade.Sprite {
         this.playerContact = false;
         this.scene = scene;
         this.alpha = 1;
+        this.tint = this.scene.portalType
         this.body.drag = 0;
         this.firstX = (game.config.width - horizonLine) / 2;
         this.targetX = (this.x - this.firstX) * game.config.width / horizonLine;

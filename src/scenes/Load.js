@@ -20,20 +20,21 @@ class Load extends Phaser.Scene {
         // Background resources
         this.load.image('portalBluebgd', 'blueDime.png');
         this.load.image('portalGreenbgd', 'greenDime.png');
+        this.load.image('bgd', 'bgd.png');
         this.load.atlas('gridMove', 'moving_grid.png', 'moving_grid.json' )
         // Game UI elements
         this.load.image('heart', 'heart.png',);
         this.load.atlas('vision', 'vision.png', 'vision.json')
 
         // portal sprites
-        this.load.atlas('portalBlue', 'portalBlue.png', 'portalBlue.json');
-        this.load.atlas('portalGreen', 'portalGreen.png', 'portalGreen.json');
+        this.load.atlas('portal', 'portal.png', 'portal.json');
         // player sprite atlas
         this.load.atlas('jetpack', 'jetpack-sheet.png', 'jetpack.json');
-        // asteroid animation atlas
+        // asteroid animations atlas
         this.load.atlas('asteroid', 'asteroid.png', 'asteroid.json');
+        this.load.atlas('explosion', 'explosion.png', 'explosion.json');
         //essence sprite
-        this.load.image('essence', 'temp.png');
+        this.load.image('essence', 'essence.png');
         
         // audio files
         this.load.path = "./assets/audio/"
@@ -61,7 +62,19 @@ class Load extends Phaser.Scene {
             duration: 700,
                 repeat: -1
         });
-        this.scene.start('menuScene');
+        
+        this.anims.create({
+            key: 'boom',
+            defaultTextureKey: 'explosion',
+            frames:  this.anims.generateFrameNames('explosion', {
+                prefix: 'explosion_',
+                suffix: '',
+                start: 0,
+                end: 12,
+                zeroPad: 0,
+            }),
+            duration: 1000
+        });
 
         this.anims.create({
             key: 'titleFun',

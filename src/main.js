@@ -5,6 +5,7 @@ let config = {
     fps:{target: 30,},
     scene: [ Load, Menu , Play, GameUI, Credits, GameOver ],
     physics: {default: 'arcade',arcade: {debug: true}},
+    type: Phaser.WEBGL,
     pixelArt: true,
     health: 3   
 };
@@ -17,7 +18,8 @@ let UIBorderY = game.config.height/20;
 let highScore = 100;
 let newHighScore = false;
 let raceScore = 0;
-let portalCompleteList = ["portalBlue", "portalGreen"];
+let portalCompleteList = ["portalBlue", "portalGreen", "portalRed"];
+let portalTint = ['0x0000ff', '0x00ff00', '0xff0000' ];
 let currentDim = 0;
 let health = 3;
 
