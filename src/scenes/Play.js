@@ -1,6 +1,7 @@
 class Play extends Phaser.Scene {
     constructor() {
-        super("playScene");        
+        super("playScene");
+        this.invulnerabilityTimer = null;        
     }
     preload() {
         this.load.spritesheet('rotatingOrbs', './assets/rotating_orbs.png', { frameWidth: 32, frameHeight: 32 });
@@ -34,9 +35,7 @@ class Play extends Phaser.Scene {
         
         
         this.P1 = new jetPack(this, game.config.width / 2, game.config.height - playerBuffer, 'jetpack', 'jetpack_00.png').setDepth(1);
-
-
-
+        this.P1.isInvulnerable = false;  // Initialize isInvulnerable property
 
         this.anims.create({
             key: 'bubble',
@@ -44,9 +43,6 @@ class Play extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
-
-          
-      
 
         this.asteroids = this.add.group({
             classType: asteroid,
@@ -125,7 +121,14 @@ class Play extends Phaser.Scene {
                 this.temp.angle = gameObject2.angle;
                 this.temp.scale = gameObject2.scale;
                 gameObject2.destroy();
-                this.P1.PlayerAsteroidOverlap(); 
+
+                if (gameObject1.isInvulnerable) {
+                    gameObject1.isInvulnerable = false;
+                    gameObject2.destroy();
+                } else {
+                    gameObject1.PlayerAsteroidOverlap(); 
+                }
+                
                 this.temp.anims.play('boom');
                 this.temp.on('animationcomplete', () => {
                     this.temp.destroy();
@@ -139,6 +142,17 @@ class Play extends Phaser.Scene {
             if(gameObject2.texture.key ==  'PowerUp'){
                 gameObject2.destroy();
                 gameObject1.isInvulnerable = true;
+
+                if (this.invulnerabilityTimer !== null) {
+                    this.invulnerabilityTimer.remove(false);
+                }
+
+                // Add a timer that will set isInvulnerable back to false after 10 seconds
+                this.invulnerabilityTimer = this.time.delayedCall(10000, () => {
+                    gameObject1.isInvulnerable = false;
+                    this.invulnerabilityTimer = null; // Reset the timer
+                });
+
             }
 
         });
@@ -185,21 +199,33 @@ class Play extends Phaser.Scene {
                 
             }
         }
+
         this.physics.world.overlap(this.P1, this.powerUps, (player, powerUp) => {
             powerUp.destroy();
             player.isInvulnerable = true;
+
+            if (this.invulnerabilityTimer !== null) {
+                this.invulnerabilityTimer.remove(false);
+            }
+            this.invulnerabilityTimer = this.time.delayedCall(10000, () => {
+                player.isInvulnerable = false;
+                this.invulnerabilityTimer = null;
+            });
+
+
         });
 
+        /*
         this.physics.world.overlap(this.P1, this.asteroids, (player, asteroid) => {
             if (player.isInvulnerable) {
-                player.isInvulnerable = false;
                 asteroid.destroy();
             } else {
                 player.PlayerAsteroidOverlap(); 
             }
         });
 
-        
+        */
+
         if(this.portalType != null){
             if(this.portal.countActive(true) < this.portal.maxSize){    
                 this.portalCur ++

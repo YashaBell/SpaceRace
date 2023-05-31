@@ -46,28 +46,35 @@ class jetPack extends Phaser.Physics.Arcade.Sprite {
             }
         }
     PlayerAsteroidOverlap(){
-        this.body.onOverlap = false;
-        this.body.setVelocityY(0);
-        this.body.setVelocityX(0);
-        this.health --;
-        this.scene.cameras.main.shake(300 , .01);
-        sceneEvents.emit('lostLife', this.health);
-        this.blink = this.scene.tweens.chain({
-            targets: this,
-            tweens: [
-                {
-                    alpha:0,
-                    duration: 40
-                },
-                {
-                    alpha: 1,
-                    duration: 40
-                },
-            ],
-            loop: 15,
-            onComplete: () => {
-                this.body.onOverlap = true;
-            }
-        });
+        if(this.isInvulnerable == false){
+            this.body.onOverlap = false;
+            this.body.setVelocityY(0);
+            this.body.setVelocityX(0);
+            this.health --;
+            this.scene.cameras.main.shake(300 , .01);
+            sceneEvents.emit('lostLife', this.health);
+            this.blink = this.scene.tweens.chain({
+                targets: this,
+                tweens: [
+                    {
+                        alpha:0,
+                        duration: 40
+                    },
+                    {
+                        alpha: 1,
+                        duration: 40
+                    },
+                ],
+                loop: 15,
+                onComplete: () => {
+                    this.body.onOverlap = true;
+                }
+            });
+            
+        }
+        else{
+            console.log("protecc")
+        }
+
     }   
 }
