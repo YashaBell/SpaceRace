@@ -6,6 +6,7 @@ class Play extends Phaser.Scene {
         this.load.spritesheet('rotatingOrbs', './assets/rotating_orbs.png', { frameWidth: 32, frameHeight: 32 });
     }
     create(){
+        
         //play scene variable set up
         this.gameOver = false;
         this.bipor = true;
@@ -33,6 +34,8 @@ class Play extends Phaser.Scene {
         
         
         this.P1 = new jetPack(this, game.config.width / 2, game.config.height - playerBuffer, 'jetpack', 'jetpack_00.png').setDepth(1);
+
+
 
 
         this.anims.create({
@@ -142,7 +145,7 @@ class Play extends Phaser.Scene {
         //timing vars for spawning
         this.nextAsteroid = this.sys.game.loop.time + 700;
         this.nextEssence = this.sys.game.loop.time + 700;
-        this.nextPowerUp = this.sys.game.loop.time + 700;
+        this.nextPowerUp = this.sys.game.loop.time + 1400;
     }
 
     update(){
@@ -173,12 +176,13 @@ class Play extends Phaser.Scene {
         }
         if(this.powerUps.countActive(true) < this.powerUps.maxSize){    
             if(this.sys.game.loop.time > this.nextPowerUp){
-                this.powerUps.add(new PowerUp(this,
-                    (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
-                    164, 
-                    'PowerUp',
-                ));
-                this.nextPowerUp = this.sys.game.loop.time + 700;
+                    this.powerUps.add(new PowerUp(this,
+                        (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
+                        164, 
+                        'PowerUp',
+                    ));
+                    this.nextPowerUp += this.sys.game.loop.time + 1400;
+                
             }
         }
         this.physics.world.overlap(this.P1, this.powerUps, (player, powerUp) => {
