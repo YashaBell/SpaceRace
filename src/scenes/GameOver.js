@@ -5,7 +5,7 @@ class GameOver extends Phaser.Scene {
     preload(){}
     create(){
         if(raceScore > highScore){
-            highScore = raceScore;
+            highScore = score;
         }
         this.add.rectangle(0,0,game.config.width,game.config.height);
         titleTextConfig.fontSize = '50px'

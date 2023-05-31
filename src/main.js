@@ -16,8 +16,8 @@ let playerBuffer = game.config.height/10;
 let UIBorderX = game.config.width/20;
 let UIBorderY = game.config.height/20;
 let highScore = 100;
+let score = 0;
 let newHighScore = false;
-let raceScore = 0;
 let portalCompleteList = ["portalBlue", "portalGreen", "portalRed"];
 let portalTint = ['0x0000ff', '0x00ff00', '0xff0000' ];
 let currentDim = 0;
@@ -26,11 +26,10 @@ let health = 3;
 let horizonLine = ( 98 * game.config.width )/640;
 
 const sceneEvents = new Phaser.Events.EventEmitter();
-let titleTextConfig = {
+let defaultTextConfig = {
     fontFamily: 'Impact',
     fontStyle: 'normal',
     fontSize: '36px',
-    backgroundColor: '#000000',
     color: '#71b09f',
     align: 'center',
     padding: {
