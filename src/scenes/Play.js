@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         this.shmmovvin.anims.play('gridMoveAnim');
 
         //audio set up based on paddleParkour
-        this.bgdMusic = this.sound.add('dimension_1', { 
+        this.bgdMusic = this.sound.add(`dimension_${Phaser.Math.Between(1,2)}`, { 
             mute: false,
             volume: 1,
             rate: 1,
