@@ -1,4 +1,5 @@
 let config = {
+    parent: "myGame",
     type: Phaser.CANVAS,
     width: 640,
     height: 360,
