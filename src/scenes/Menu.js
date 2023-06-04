@@ -5,37 +5,11 @@ class Menu extends Phaser.Scene {
     preload(){}
     create(){
         health = 3;
+        score = 0;
         this.BGD = this.add.sprite(0,0,'titleScreen').setOrigin(0,0);
+        this.BGD.setScale(2.5);
         this.BGD.anims.play('titleFun');
         
-        let titleTextConfig = {
-            fontFamily: 'Impact',
-            fontStyle: 'normal',
-            fontSize: '36px',
-            color: '#71b09f',
-            align: 'center',
-            padding: {
-                top: 10,
-                bottom: 10
-            },
-            fixedWidth: 0
-        }
-        this.add.text(UIBorderX, UIBorderY, 'Space Race', titleTextConfig).setOrigin(0,0);
-        
-        this.subtitleTextConfig = {
-            fontFamily: 'Impact',
-            fontStyle: 'normal',
-            fontSize: '20px',
-            color: '#ffffff',
-            align: 'center',
-            padding: {
-                top: 10,
-                bottom: 10
-            },
-            fixedWidth: 0
-        }
-        this.add.text(UIBorderX, UIBorderY * 4, 'press (Space) to start', this.subtitleTextConfig).setOrigin(0,0);
-        this.add.text(UIBorderX, UIBorderY * 6, 'press (C) to see credits', this.subtitleTextConfig).setOrigin(0,.0);
         
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -46,7 +20,7 @@ class Menu extends Phaser.Scene {
     update() {
         if(keySpace.isDown){
             this.sound.play('selectSFX');
-            this.scene.start('playScene');
+            this.scene.start('instructionScene');
         }
         if(keyC.isDown){
             this.sound.play('selectSFX');
