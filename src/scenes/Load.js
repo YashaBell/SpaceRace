@@ -16,7 +16,9 @@ class Load extends Phaser.Scene {
         // image files
         this.load.path = "./assets/"
         // title screen animation
-        this.load.atlas('titleScreen', 'titleScreen.png', 'titleScreen.json');
+        this.load.atlas('titleScreen', 'Title_Screen.png', 'Title_Screen.json');
+        this.load.atlas('instructionScreen', 'Instructions.png', 'Instructions.json');
+        this.load.atlas('homeScreen', 'Home_screen.png', 'Home_screen.json');
         // Background resources
         this.load.image('portalBluebgd', 'blueDime.png');
         this.load.image('portalGreenbgd', 'greenDime.png');
@@ -80,14 +82,40 @@ class Load extends Phaser.Scene {
             key: 'titleFun',
             defaultTextureKey: 'titleScreen',
             frames:  this.anims.generateFrameNames('titleScreen', {
-                prefix: 'title_',
+                prefix: '',
                 suffix: '',
                 start: 0,
                 end: 2,
-                zeroPad: 2,
+                zeroPad: 1,
             }),
             duration: 700,
                 repeat: -1
+        });
+        this.anims.create({
+            key: 'instructionFun',
+            defaultTextureKey: 'instructionScreen',
+            frames:  this.anims.generateFrameNames('instructionScreen', {
+                prefix: 'Instructions ',
+                suffix: '',
+                start: 0,
+                end: 2,
+                zeroPad: 1,
+            }),
+            duration: 700,
+                repeat: -1
+        });
+        this.anims.create({
+            key: 'homeFun',
+            defaultTextureKey: 'homeScreen',
+            frames:  this.anims.generateFrameNames('homeScreen', {
+                prefix: '',
+                suffix: '',
+                start: 0,
+                end: 28,
+                zeroPad: 1,
+            }),
+            duration: 700,
+            repeat: false
         });
         this.scene.start('menuScene');
     }

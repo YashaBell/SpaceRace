@@ -1,0 +1,44 @@
+{ "frames": {
+   "Instructions 0": {
+    "frame": { "x": 1, "y": 1, "w": 258, "h": 146 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 144 },
+    "sourceSize": { "w": 256, "h": 144 },
+    "duration": 700
+   },
+   "Instructions 1": {
+    "frame": { "x": 260, "y": 1, "w": 258, "h": 146 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 144 },
+    "sourceSize": { "w": 256, "h": 144 },
+    "duration": 700
+   },
+   "Instructions 2": {
+    "frame": { "x": 1, "y": 1, "w": 258, "h": 146 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 144 },
+    "sourceSize": { "w": 256, "h": 144 },
+    "duration": 700
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "Instructions.png",
+  "format": "RGBA8888",
+  "size": { "w": 518, "h": 147 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Background", "opacity": 255, "blendMode": "normal" },
+   { "name": "Box", "opacity": 255, "blendMode": "normal" },
+   { "name": "Text", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

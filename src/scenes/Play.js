@@ -2,7 +2,7 @@ class Play extends Phaser.Scene {
     constructor() {
         super("playScene");        
     }
-    preload() {}
+    
     create(){
         //play scene variable set up
         this.gameOver = false;
@@ -185,6 +185,14 @@ class Play extends Phaser.Scene {
                         this.scene.start('gameOverScene');
                     }
                 });
+            }
+
+            if(score == 100){
+                this.gameOver = true;
+                this.scene.stop('gameUIScene');
+                this.bgdMusic.destroy();
+                this.scene.start('homeScene');
+                
             }
         }
     } 
