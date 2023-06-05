@@ -4,7 +4,10 @@ class Play extends Phaser.Scene {
         this.invulnerabilityTimer = null;        
     }
     preload() {
+        this.load.image('shield', './assets/shield.png');
+        this.load.image('life', './assets/life.png');
         this.load.spritesheet('rotatingOrbs', './assets/rotating_orbs.png', { frameWidth: 32, frameHeight: 32 });
+
     }
     create(){
         
@@ -59,6 +62,12 @@ class Play extends Phaser.Scene {
             runChildUpdate: true,
             maxSize: 10
         });
+        this.lifePowerUps = this.add.group({
+            classType: LifePowerUp,
+            runChildUpdate: true,
+            maxSize: 10
+        });
+    
 
         
         
@@ -142,24 +151,29 @@ class Play extends Phaser.Scene {
             if(gameObject2.texture.key ==  'PowerUp'){
                 gameObject2.destroy();
                 gameObject1.isInvulnerable = true;
-
+            
                 if (this.invulnerabilityTimer !== null) {
                     this.invulnerabilityTimer.remove(false);
                 }
-
+                this.P1.activateShield();
+            
                 // Add a timer that will set isInvulnerable back to false after 10 seconds
                 this.invulnerabilityTimer = this.time.delayedCall(10000, () => {
                     gameObject1.isInvulnerable = false;
+                    this.P1.removeShield(); 
                     this.invulnerabilityTimer = null; // Reset the timer
                 });
-
             }
+            
+            //need to add collision behavior
 
         });
         //timing vars for spawning
         this.nextAsteroid = this.sys.game.loop.time + 700;
         this.nextEssence = this.sys.game.loop.time + 700;
         this.nextPowerUp = this.sys.game.loop.time + 1400;
+        this.nextLifePowerUp = this.sys.game.loop.time + 1400;
+
     }
 
     update(){
@@ -199,6 +213,18 @@ class Play extends Phaser.Scene {
                 
             }
         }
+        //spawns life
+        if(this.lifePowerUps.countActive(true) < this.lifePowerUps.maxSize){    
+            if(this.sys.game.loop.time > this.nextLifePowerUp){
+                    this.lifePowerUps.add(new LifePowerUp(this,
+                        (game.config.width / 2) + Phaser.Math.Between(-horizonLine / 2 , horizonLine / 2),
+                        164,
+                    ));
+                    this.nextLifePowerUp += this.sys.game.loop.time + 1400;
+                
+            }
+        }
+    
 
         this.physics.world.overlap(this.P1, this.powerUps, (player, powerUp) => {
             powerUp.destroy();
@@ -214,17 +240,15 @@ class Play extends Phaser.Scene {
 
 
         });
-
-        /*
-        this.physics.world.overlap(this.P1, this.asteroids, (player, asteroid) => {
-            if (player.isInvulnerable) {
-                asteroid.destroy();
-            } else {
-                player.PlayerAsteroidOverlap(); 
-            }
+        this.physics.world.overlap(this.P1, this.lifePowerUps, (player, lifePowerUp) => {
+            lifePowerUp.destroy();
+            player.addLife();
+            sceneEvents.emit('collectedLife');
         });
+        
+    
 
-        */
+        
 
         if(this.portalType != null){
             if(this.portal.countActive(true) < this.portal.maxSize){    
@@ -246,11 +270,11 @@ class Play extends Phaser.Scene {
             this.physics.world.overlap(this.P1, this.portal);
             this.physics.world.overlap(this.P1, this.essences);
             
-            //onOverlap isn't working so I did it myself fuck you phaser
+            //onOverlap isn't working so I did it myself **** you phaser
             if(this.P1.body.onOverlap){
                 this.physics.world.overlap(this.P1, this.asteroids);
             }
-            if(this.P1.health == 0){
+            if(this.P1.health <= 0){
                 this.gameOver = true;
                 this.asteroids.clear(true, true);
                 this.tweens.add({
