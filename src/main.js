@@ -23,6 +23,8 @@ let portalCompleteList = ["portalBlue", "portalGreen", "portalRed"];
 let portalTint = ['0x0000ff', '0x00ff00', '0xff0000' ];
 let currentDim = 0;
 let health = 3;
+let maxHealth = 3; // For example
+
 
 let horizonLine = ( 98 * game.config.width )/640;
 
