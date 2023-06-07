@@ -9,6 +9,7 @@ class Play extends Phaser.Scene {
         this.load.spritesheet('rotatingOrbs', './assets/rotating_orbs.png', { frameWidth: 32, frameHeight: 32 });
 
     }
+
     create(){
         
         //play scene variable set up
@@ -23,7 +24,7 @@ class Play extends Phaser.Scene {
         this.shmmovvin.anims.play('gridMoveAnim');
 
         //audio set up based on paddleParkour
-        this.bgdMusic = this.sound.add('dimension_1', { 
+        this.bgdMusic = this.sound.add(`dimension_${Phaser.Math.Between(1,2)}`, { 
             mute: false,
             volume: 1,
             rate: 1,
@@ -92,11 +93,14 @@ class Play extends Phaser.Scene {
             this.portalType = this.possiblePortals[Phaser.Math.Between(0, this.possiblePortals.length - 1)];
             this.bipor = false;
         });
+        this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+            sceneEvents.off('spawnPortal');
+        });
         this.physics.world.on('overlap', (gameObject1, gameObject2, body1, body2) =>{
             gameObject2.onOverlap = false;
 
             if(gameObject2.texture.key == 'portal'){
-                console.log(true);
+                score += 100
                 this.gameOver = true;
                 gameObject2.playerContact = true;
                 gameObject2.setDepth(2);
@@ -276,6 +280,7 @@ class Play extends Phaser.Scene {
             }
             if(this.P1.health <= 0){
                 this.gameOver = true;
+                this.scene.stop('gameUIScene');
                 this.asteroids.clear(true, true);
                 this.tweens.add({
                     targets: this.bgdMusic,
@@ -284,10 +289,17 @@ class Play extends Phaser.Scene {
                     duration: 2000,
                     onComplete: () => {
                         this.bgdMusic.destroy();
-                        this.scene.stop('gameUIScene');
                         this.scene.start('gameOverScene');
                     }
                 });
+            }
+
+            if(score == 100){
+                this.gameOver = true;
+                this.scene.stop('gameUIScene');
+                this.bgdMusic.destroy();
+                this.scene.start('homeScene');
+                
             }
         }
     } 

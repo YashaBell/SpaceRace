@@ -1,0 +1,37 @@
+{ "frames": {
+   "0": {
+    "frame": { "x": 1, "y": 1, "w": 258, "h": 146 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 144 },
+    "sourceSize": { "w": 256, "h": 144 },
+    "duration": 100
+   },
+   "1": {
+    "frame": { "x": 260, "y": 1, "w": 258, "h": 146 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 144 },
+    "sourceSize": { "w": 256, "h": 144 },
+    "duration": 100
+   },
+   "2": {
+    "frame": { "x": 1, "y": 148, "w": 258, "h": 146 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 144 },
+    "sourceSize": { "w": 256, "h": 144 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "Title_Screen (1).png",
+  "format": "RGBA8888",
+  "size": { "w": 518, "h": 294 },
+  "scale": "1",
+  "frameTags": [
+  ]
+ }
+}
