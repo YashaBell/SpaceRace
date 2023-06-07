@@ -290,7 +290,7 @@ class Play extends Phaser.Scene {
                 });
             }
 
-            if(score == 100){
+            if(score == 1200){
                 this.gameOver = true;
                 this.scene.stop('gameUIScene');
                 this.bgdMusic.destroy();

@@ -11,7 +11,7 @@ class GameUI extends Phaser.Scene {
         //heart container
         this.add.rectangle(UIBorderY, game.config.height - UIBorderY, 64, 24, 0x767676).setOrigin(0, 1);
         this.add.rectangle(UIBorderY + 2, game.config.height - UIBorderY - 2, 60, 20, 0x2b2b2b).setOrigin(0, 1);
-        let scoreConfig = titleTextConfig;
+        let scoreConfig = defaultTextConfig;
         scoreConfig.fontSize = `${UIBorderY}px`
         scoreConfig.padding = {
             top: -1,
