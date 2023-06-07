@@ -69,10 +69,6 @@ class Play extends Phaser.Scene {
             maxSize: 10
         });
     
-
-        
-        
-
         this.scene.run('gameUIScene', {active: true});
         
         this.possiblePortals = new Array(portalTint.length);
