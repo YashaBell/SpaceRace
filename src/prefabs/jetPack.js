@@ -8,7 +8,6 @@ class jetPack extends Phaser.Physics.Arcade.Sprite {
         this.body.setCollideWorldBounds(true);
         this.accel = 400;
         this.drag = 400;
-        this.health = 3;
         this.scale = 1;
         this.isInvulnerable = false;
 
@@ -74,9 +73,8 @@ class jetPack extends Phaser.Physics.Arcade.Sprite {
             this.body.onOverlap = false;
             this.body.setVelocityY(0);
             this.body.setVelocityX(0);
-            this.health --;
             this.scene.cameras.main.shake(300 , .01);
-            sceneEvents.emit('lostLife', this.health);
+            sceneEvents.emit('lostLife', health);
             this.blink = this.scene.tweens.chain({
                 targets: this,
                 tweens: [
@@ -98,9 +96,7 @@ class jetPack extends Phaser.Physics.Arcade.Sprite {
         }
 
     }
-    addLife(){
-        this.health++;
-    }   
+    
     activateShield() {
         // If the shield is already visible, no need to activate it again
         if (!this.shield.visible) {

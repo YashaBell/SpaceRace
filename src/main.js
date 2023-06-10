@@ -5,7 +5,11 @@ let config = {
     height: 360,
     fps:{target: 30,},
     scene: [ Load, Menu , Instruction, Play, GameUI, Credits, GameOver, Home ],
-    physics: {default: 'arcade',arcade: {debug: true}},
+    physics: {default: 'arcade',arcade: {
+        //debug
+                                                debug: false
+        //debug
+    }},
     type: Phaser.WEBGL,
     pixelArt: true,
     health: 3   

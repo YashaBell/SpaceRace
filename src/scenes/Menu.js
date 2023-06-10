@@ -18,6 +18,7 @@ class Menu extends Phaser.Scene {
 
     }
     update() {
+        health = 3;
         if(keySpace.isDown){
             this.sound.play('selectSFX');
             this.scene.start('instructionScene');

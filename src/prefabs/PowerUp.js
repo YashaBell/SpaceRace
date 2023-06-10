@@ -22,6 +22,7 @@ class PowerUp extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+      this.scale = ((this.y - 128) / 128);
       this.angle = -Math.atan(this.body.velocity.x / this.body.velocity.y) * (180 / Math.PI);
       if (this.y > game.config.height + this.body.height / 2) {
         this.destroy();

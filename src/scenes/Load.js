@@ -32,12 +32,14 @@ class Load extends Phaser.Scene {
         this.load.atlas('portal', 'portal.png', 'portal.json');
         // player sprite atlas
         this.load.atlas('jetpack', 'jetpack-sheet.png', 'jetpack.json');
+        this.load.spritesheet('rotatingOrbs', 'rotating_orbs.png', { frameWidth: 32, frameHeight: 32 });
         // asteroid animations atlas
         this.load.atlas('asteroid', 'asteroid.png', 'asteroid.json');
         this.load.atlas('explosion', 'explosion.png', 'explosion.json');
-        //essence sprite
+        //essence and power ups sprite
         this.load.image('essence', 'essence.png');
-        
+        this.load.image('shield', 'shield.png');
+        this.load.image('life', 'life.png');
         // audio files
         this.load.path = "./assets/audio/"
         // game music
@@ -47,10 +49,19 @@ class Load extends Phaser.Scene {
         this.load.audio('selectSFX', 'selection.wav');
         this.load.audio('portal', 'portal.wav');
         this.load.audio('warning', 'warning.wav');
+
         
     }
 
     create() {
+        //anims factory
+        this.anims.create({
+            key: 'bubble',
+            frames: this.anims.generateFrameNumbers('rotatingOrbs', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
         this.anims.create({
             key: 'gridMoveAnim',
             defaultTextureKey: 'gridMove',

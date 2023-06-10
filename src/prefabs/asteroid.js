@@ -6,6 +6,7 @@ class asteroid extends Phaser.Physics.Arcade.Sprite {
         this.body.onOverlap = true;
         this.body.isCircle = true;
         this.scene = scene;
+        this.scale = .14;
         this.body.drag = 0;
         this.firstX = (game.config.width - horizonLine) / 2;
         this.targetX = (this.x - this.firstX) * game.config.width / horizonLine;
