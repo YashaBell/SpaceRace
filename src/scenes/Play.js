@@ -100,7 +100,7 @@ class Play extends Phaser.Scene {
                 this.essences.clear(true, true);
                 this.powerUps.clear(true, true);
                 this.lifePowerUps.clear(true, true);
-                if (score > 50) {
+                if (score > 1200) {
                     this.gameOver = true;
                     this.scene.stop('gameUIScene');
                     this.bgdMusic.destroy();
